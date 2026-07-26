@@ -1,0 +1,6 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon">
+<path id="bg" d="M4 0.5H16C17.933 0.5 19.5 2.067 19.5 4V16C19.5 17.933 17.933 19.5 16 19.5H4C2.067 19.5 0.5 17.933 0.5 16V4C0.5 2.067 2.067 0.5 4 0.5Z" stroke="black" stroke-opacity="0.24"/>
+<path id="check (Stroke)" d="M15.7278 5.8193C16.1062 6.2262 16.0878 6.86592 15.6867 7.24988L8.11207 14.5L4.31176 10.7127C3.90713 10.3094 3.8948 9.65335 4.28397 9.23485C4.6411 8.85082 5.22339 8.79132 5.64929 9.09534L8 11L14.3661 5.7263C14.774 5.39187 15.3681 5.43244 15.7278 5.8193Z" fill="black"/>
+</g>
+</svg>

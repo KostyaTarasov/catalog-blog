@@ -1,0 +1,202 @@
+@import 'tailwindcss';
+
+/* Inter local woff2, font-display: swap (bundled by Vite from @fontsource) */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/*
+ * Design tokens — 1:1 from Figma variables (file l56Z1qjBTPwLEnsWT3dHRe).
+ * Default Tailwind palette is disabled: only tokens below may be used in markup.
+ * Figma letter-spacing is percent of font size → em.
+ */
+@theme {
+    --color-*: initial;
+    --font-*: initial;
+
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    /* text/* */
+    --color-text-main: #000000;
+    --color-text-main-contrast: #ffffff;
+    --color-text-caption: #00000066;
+    --color-text-link: #3b67db;
+    --color-text-positive: #82b443;
+    --color-text-disable: #0000003d;
+
+    /* bg/* */
+    --color-bg-main: #ffffff;
+    --color-bg-secondary: #f4f4f4;
+    --color-bg-button: #010101;
+    --color-bg-button-light: #f3f3f3;
+
+    /* border/* */
+    --color-border-main: #00000014;
+    --color-border-control: #0000001f;
+    --color-border-secondary: #0000001f;
+    --color-border-link-main: #00000029;
+    --color-border-input: #0000001f;
+    --color-border-link: #305dd13d;
+
+    /* brand/* */
+    --color-brand-1: #000000;
+
+    /* фон под изображение в карточках (значение из макета, переменной в Figma нет) */
+    --color-img-placeholder: #ececec;
+
+    /* Desktop/Header #1..#5, Lead, Control M/S, Upper S */
+    --text-header-1: 68px;
+    --text-header-1--line-height: 72px;
+    --text-header-1--letter-spacing: -0.03em;
+    --text-header-1--font-weight: 700;
+    --text-header-2: 48px;
+    --text-header-2--line-height: 56px;
+    --text-header-2--letter-spacing: -0.03em;
+    --text-header-2--font-weight: 700;
+    /* header-3: в переменных Figma не встретился; размер снят со скриншота карточки продукта — сверить */
+    --text-header-3: 32px;
+    --text-header-3--line-height: 36px;
+    --text-header-3--letter-spacing: -0.03em;
+    --text-header-3--font-weight: 700;
+    --text-header-4: 28px;
+    --text-header-4--line-height: 32px;
+    --text-header-4--letter-spacing: -0.03em;
+    --text-header-4--font-weight: 700;
+    --text-header-5: 20px;
+    --text-header-5--line-height: 24px;
+    --text-header-5--letter-spacing: -0.02em;
+    --text-header-5--font-weight: 700;
+    --text-lead: 20px;
+    --text-lead--line-height: 28px;
+    --text-control-m: 16px;
+    --text-control-m--line-height: 24px;
+    --text-control-s: 14px;
+    --text-control-s--line-height: 20px;
+    --text-upper-s: 12px;
+    --text-upper-s--line-height: 16px;
+    --text-upper-s--letter-spacing: 0.02em;
+    --text-upper-s--font-weight: 600;
+
+    /* desktop/br-* */
+    --radius-btn-m: 8px;
+    --radius-btn-l: 12px;
+    --radius-control-m: 8px;
+    --radius-control-l: 16px;
+
+    /* btns/desktop/pad-* : x = pad-w-text, y = pad-h-btn, icon = pad-w-icon */
+    --spacing-btn-x-m: 20px;
+    --spacing-btn-y-m: 16px;
+    --spacing-btn-icon-m: 16px;
+    --spacing-btn-x-l: 28px;
+    --spacing-btn-y-l: 24px;
+
+    /* margins/desktop/* */
+    --spacing-header-bottom: 32px;
+    --spacing-main-top: 16px;
+    --spacing-main-bottom: 48px;
+
+    /* content width: 1344px at 1920 canvas */
+    --container-page: 84rem;
+
+    /* тень карточки продукта: в переменных Figma её нет (overlay-shadow пуст) — сверить */
+    --shadow-card: 0 8px 24px rgb(0 0 0 / 0.08);
+}
+
+@utility scrollbar-none {
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    body {
+        @apply bg-bg-main font-sans text-control-m text-text-main antialiased;
+    }
+}
+
+@layer components {
+    /* типографика статьи (Markdown-контент) */
+    .article-content {
+        display: flex;
+        flex-direction: column;
+        gap: --spacing(4);
+        font-size: var(--text-control-m);
+        line-height: var(--text-control-m--line-height);
+
+        h2 {
+            margin-top: --spacing(4);
+            font-size: var(--text-header-4);
+            font-weight: var(--text-header-4--font-weight);
+            letter-spacing: var(--text-header-4--letter-spacing);
+            line-height: var(--text-header-4--line-height);
+        }
+
+        h3 {
+            margin-top: --spacing(2);
+            font-size: var(--text-header-5);
+            font-weight: var(--text-header-5--font-weight);
+            letter-spacing: var(--text-header-5--letter-spacing);
+            line-height: var(--text-header-5--line-height);
+        }
+
+        ol {
+            list-style: decimal;
+            padding-left: --spacing(5);
+            display: flex;
+            flex-direction: column;
+            gap: --spacing(2);
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: --spacing(2);
+
+            li::before {
+                content: '—\00a0';
+            }
+        }
+    }
+
+    /* двойной range-слайдер цены: ручка 20px — белый круг с обводкой 2px (из макета) */
+    .price-range {
+        pointer-events: none;
+        position: absolute;
+        inset-inline: 0;
+        top: 0;
+        height: 20px;
+        appearance: none;
+        background: transparent;
+    }
+
+    .price-range::-webkit-slider-thumb {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--color-bg-main);
+        border: 2px solid var(--color-bg-button);
+        pointer-events: auto;
+        cursor: pointer;
+    }
+
+    .price-range::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--color-bg-main);
+        border: 2px solid var(--color-bg-button);
+        pointer-events: auto;
+        cursor: pointer;
+    }
+}
