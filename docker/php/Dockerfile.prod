@@ -1,0 +1,44 @@
+FROM node:24-alpine AS assets
+
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+COPY vite.config.js ./
+COPY resources ./resources
+RUN npm run build
+
+# --- PHP-зависимости ---
+FROM composer:2 AS vendor
+
+WORKDIR /app
+
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist \
+    --optimize-autoloader --ignore-platform-reqs
+
+FROM php:8.4-fpm-alpine
+
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions pdo_mysql redis opcache intl zip gd exif bcmath pcntl
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+COPY docker/php/php.prod.ini /usr/local/etc/php/conf.d/app.ini
+
+WORKDIR /var/www/html
+
+COPY . .
+COPY --from=vendor /app/vendor ./vendor
+COPY --from=assets /app/public/build ./public/build
+
+RUN composer dump-autoload --no-dev --optimize \
+    && php artisan filament:assets \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && cp -a public /opt/public-src
+
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["php-fpm"]
