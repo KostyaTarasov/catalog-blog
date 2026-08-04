@@ -144,7 +144,7 @@
                     @endif
                 </p>
 
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2" x-data>
                     <div x-data="{ qty: 1 }" class="flex gap-2">
                         <div class="flex w-36 shrink-0 items-center justify-between rounded-control-m bg-bg-button-light p-4">
                             <button type="button" @click="qty = Math.max(1, qty - 1)" aria-label="Уменьшить количество" class="flex size-6 items-center justify-center text-text-main"><x-icon.minus class="w-[18px]" /></button>

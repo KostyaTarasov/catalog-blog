@@ -27,7 +27,7 @@
                 </ul>
             </div>
 
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-6" x-data>
                 <x-ui.button variant="dark" size="l" @click="$dispatch('open-lead-modal')">Подробнее</x-ui.button>
             </div>
             </div>
