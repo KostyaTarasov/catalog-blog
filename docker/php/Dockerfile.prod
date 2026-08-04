@@ -21,7 +21,10 @@ RUN composer install --no-dev --no-scripts --no-interaction --prefer-dist \
 FROM php:8.4-fpm-alpine
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
-RUN install-php-extensions pdo_mysql redis opcache intl zip gd exif bcmath pcntl
+
+RUN echo "--ipv4" >> /root/.curlrc \
+    && apk add --no-cache openssl-dev \
+    && install-php-extensions pdo_mysql redis-6.3.0 opcache intl zip gd exif
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY docker/php/php.prod.ini /usr/local/etc/php/conf.d/app.ini
